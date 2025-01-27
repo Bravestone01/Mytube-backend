@@ -5,7 +5,16 @@ import connectDB from "./db/index.js";
 dotenv.config();
 
 
-connectDB();
+connectDB()
+.then(()=>{
+    app.listen(process.env.PORT, ()=>{
+        console.log(`SERVER RUNNING ON PORT: ${process.env.PORT}`);   
+    })
+})
+.catch((error)=>{
+    console.error("MONGODB CONNECTION ERROR:", error)
+}
+)
 
 
 
@@ -15,10 +24,13 @@ connectDB();
 
 
 // mogono db connection setup way 1
-
+// import dotenv from "dotenv";
 // import mongoose from "mongoose";
-// import { DB_NAME } from "./constants";
+// import { DB_NAME } from "./constants.js";
 // import express from "express";
+
+// dotenv.config();
+
 
 // const app = express()
 
