@@ -1,5 +1,8 @@
 import { v2 as cloudinary } from 'cloudinary';
-import { fs } from "fs";
+import fs from "fs";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 cloudinary.config({
@@ -8,17 +11,22 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+
 const uploadCloudinary = async (localFilePath) => {
  try {
     if (!localFilePath) return null;
+   //  console.log("local path :" , localFilePath);
+    
     //upload the file on cloudinary
    const result = await cloudinary.uploader.upload(localFilePath, {
         resource_type: "auto",
     })
-    console.log("file is uploaded", result.url);
+   console.log("cloudinary result of uploaded images :", result.url);
     return result;
     
  } catch (error) {
+   console.log("error of cloudanariy:",error);
+   
     fs.unlinkSync(localFilePath);//  remove the locally file from temporary file aas the upload failed
     return null  
  }
