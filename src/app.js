@@ -20,7 +20,7 @@ import userRegister from "./routes/user.routes.js";
 // route decleration
 app.use("/api/v1/users", userRegister);
 
-// http://localhost:5000/api/v1/users my url
+// http://localhost:8000/api/v1/users my url
 
 
 
