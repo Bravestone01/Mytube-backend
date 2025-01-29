@@ -22,6 +22,7 @@ const uploadCloudinary = async (localFilePath) => {
         resource_type: "auto",
     })
    console.log("cloudinary result of uploaded images :", result.url);
+   fs.unlinkSync(localFilePath);
     return result;
     
  } catch (error) {

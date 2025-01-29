@@ -30,8 +30,14 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(409, "User with username or email already exist");
     }
     const avatarLocalpath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
-    console.log(avatarLocalpath);
+    // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    // console.log(avatarLocalpath); 
+    
+    // agr user cover image upload nh krta to undefined ka error ahrha tha thats why we use optional chaining and handle that error
+    let coverImageLocalPath;
+    if (req.files?.coverImage && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
+        coverImageLocalPath = req.files.coverImage[0].path; 
+    }
     
 
     if (!avatarLocalpath) {
@@ -40,7 +46,7 @@ const registerUser = asyncHandler( async (req, res) => {
 
     const avatar = await uploadCloudinary(avatarLocalpath);
     const coverImage = await uploadCloudinary(coverImageLocalPath);
-    console.log(avatar);
+    // console.log(avatar);
     
     if (!avatar) {
         throw new ApiError(400, "Avatar is required"); 
@@ -59,7 +65,10 @@ const registerUser = asyncHandler( async (req, res) => {
     if (!createdUser) {
         throw new ApiError(500, "Something went wrong while creating user");
     }
-    return res.status(201).json(new ApiResponse(200, "User created successfully", createdUser));
+    // return res.status(201).json(new ApiResponse(200, "User created successfully", createdUser));
+    const response = new ApiResponse(createdUser, 200, "User created successfully");
+    console.log("Response Object:", response); 
+    res.status(201).json(response);
   
 })
 
