@@ -12,7 +12,7 @@ router.route("/register").post(
     ]),
     (err, req, res, next) => {
       if (err) {
-        return res.status(400).send(err.message);
+        return res.status(400).send("error while regitering user ",err.message);
       }
       next();
     },
