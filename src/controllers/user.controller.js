@@ -416,7 +416,7 @@ const user = await User.aggregate([
 ])
 return res
 .status(200)
-.json(new ApiResponce(200, user[0].watchHistory , "watch histroy successfully get done" ))
+.json(new ApiResponse(200, user[0].watchHistory , "watch histroy successfully get done" ))
 })
 
 export {
